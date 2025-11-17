@@ -1,5 +1,8 @@
 package com.screenmatch;
 
+import com.google.gson.Gson;
+import com.screenmatch.models.Title;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -25,5 +28,10 @@ public class Main {
                 .send(request, HttpResponse.BodyHandlers.ofString());
 
         System.out.println(response.body());
+
+        Gson gson = new Gson();
+        // gson.fromJson accept a class to be the response class
+        Title myTitle = gson.fromJson(response.body(), Title.class);
+        System.out.println(myTitle.getName());
     }
 }
