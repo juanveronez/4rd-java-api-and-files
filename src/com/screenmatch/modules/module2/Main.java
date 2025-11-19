@@ -3,11 +3,20 @@ package com.screenmatch.modules.module2;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.screenmatch.modules.module2.models.Book;
+import com.screenmatch.modules.module2.models.Client;
 import com.screenmatch.modules.module2.models.Person;
 
 public class Main {
     public static void main(String[] args) {
+        exercise1();
+        System.out.println("---");
+        exercise2();
+        System.out.println("---");
         exercise3();
+        System.out.println("---");
+        exercise4();
+        System.out.println("---");
+        exercise5();
     }
 
     /**
@@ -16,15 +25,15 @@ public class Main {
      * converter um JSON representando uma pessoa em um objeto do tipo Pessoa.
      */
     private static void exercise1() {
-        String person = "{ \"name\": \"Juan\", \"age\": 25, \"city\": \"Campinas\" }";
+        String personJson = "{ \"name\": \"Juan\", \"age\": 25, \"city\": \"Campinas\" }";
 
         Gson gson = new Gson();
-        Person juan = gson.fromJson(person, Person.class);
+        Person person = gson.fromJson(personJson, Person.class);
         System.out.printf("""
                 Nome: %s
                 Idade: %d
-                Cidade: %s 
-                """, juan.name(), juan.age(), juan.city());
+                Cidade: %s
+                """, person.name(), person.age(), person.city());
     }
 
     /**
@@ -62,6 +71,34 @@ public class Main {
         Gson gson = new Gson();
         Book book = gson.fromJson(bookJson, Book.class);
 
-        System.out.println(book);
+        System.out.print(book);
+    }
+
+    /**
+     * Refaça o exercício 1, mas agora utilizando uma classe e a conversão de atributos.
+     */
+    private static void exercise4() {
+        String personJson = "{ \"name\": \"Juan\", \"age\": 25, \"city\": \"Campinas\" }";
+
+        Gson gson = new Gson();
+        Client client = gson.fromJson(personJson, Client.class);
+
+        System.out.println(client);
+    }
+
+    /**
+     * Refaça o exercício 1, mas agora utilizando uma classe o record para conversão.
+     */
+    private static void exercise5() {
+        String personJson = "{ \"name\": \"Juan\", \"age\": 25, \"city\": \"Campinas\" }";
+
+        Gson gson = new Gson();
+        Person person = gson.fromJson(personJson, Person.class);
+
+        System.out.println(person);
+
+        Client client = new Client(person);
+        System.out.println(client);
+
     }
 }
