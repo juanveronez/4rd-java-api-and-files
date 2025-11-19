@@ -22,6 +22,14 @@ public class Title implements Comparable<Title> {
         this.releaseYear = releaseYear;
     }
 
+    public Title(OmdbTitle omdbTitle) {
+        this.name = omdbTitle.title();
+        this.releaseYear = Integer.parseInt(omdbTitle.year());
+
+        int spaceIndex = omdbTitle.runtime().indexOf(" ");
+        this.durationInMinutes = Integer.parseInt(omdbTitle.runtime().substring(0,spaceIndex));
+    }
+
     public void displaySpecs() {
         String specs = """
                         -------- Fixa Técnica do Filme --------
@@ -90,5 +98,15 @@ public class Title implements Comparable<Title> {
     @Override
     public int compareTo(Title otherTitle) {
         return getName().compareTo(otherTitle.getName());
+    }
+
+    @Override
+    public String toString() {
+        return "Title{" +
+                "name='" + name + '\'' +
+                ", releaseYear=" + releaseYear +
+                ", imdbReview=" + imdbReview +
+                ", durationInMinutes=" + durationInMinutes +
+                '}';
     }
 }
