@@ -3,13 +3,11 @@ package com.screenmatch.models;
 import com.google.gson.annotations.SerializedName;
 
 public class Title implements Comparable<Title> {
-    @SerializedName("Title")
+    // @SerializedName("Title")
     private String name;
-
-    @SerializedName("Year")
+    // @SerializedName("Year")
     private int releaseYear;
-
-    @SerializedName("imdbRating")
+    // @SerializedName("imdbRating")
     private double imdbReview;
 
     private int durationInMinutes;
