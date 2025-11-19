@@ -1,6 +1,9 @@
 package com.screenmatch;
 
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.screenmatch.models.OmdbTitle;
 import com.screenmatch.models.Title;
 
 import java.io.IOException;
@@ -29,9 +32,14 @@ public class Main {
 
         System.out.println(response.body());
 
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+                .create();
         // gson.fromJson accept a class to be the response class
-        Title myTitle = gson.fromJson(response.body(), Title.class);
-        System.out.println(myTitle.getName());
+        // Title myTitle = gson.fromJson(response.body(), Title.class);
+        OmdbTitle myOmdbTitle = gson.fromJson(response.body(), OmdbTitle.class);
+        System.out.println(myOmdbTitle);
+        Title myTitle = new Title(myOmdbTitle);
+        System.out.println(myTitle);
     }
 }
