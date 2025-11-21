@@ -1,6 +1,6 @@
 package com.screenmatch.models;
 
-import com.google.gson.annotations.SerializedName;
+import com.screenmatch.exceptions.YearConversionException;
 
 public class Title implements Comparable<Title> {
     // @SerializedName("Title")
@@ -22,6 +22,11 @@ public class Title implements Comparable<Title> {
 
     public Title(OmdbTitle omdbTitle) {
         this.name = omdbTitle.title();
+
+        if (omdbTitle.year().length() > 4) {
+            throw new YearConversionException("Exceção! Ano com mais de 4 caracteres");
+        }
+
         this.releaseYear = Integer.parseInt(omdbTitle.year());
 
         int spaceIndex = omdbTitle.runtime().indexOf(" ");

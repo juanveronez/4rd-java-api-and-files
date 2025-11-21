@@ -3,6 +3,7 @@ package com.screenmatch;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.screenmatch.exceptions.YearConversionException;
 import com.screenmatch.models.OmdbTitle;
 import com.screenmatch.models.Title;
 
@@ -20,7 +21,7 @@ public class Main {
         String search = scanner.nextLine();
 
         try {
-            String uriString = "https://www.omdbapi.com/?t=%s&apikey=594fa5ec".formatted(search);
+            String uriString = "https://www.omdbapi.com/?t=%s&apikey=594fa5ec".formatted(search.replace(" ", "+"));
 
             HttpClient client = HttpClient.newHttpClient();
 
@@ -50,7 +51,12 @@ public class Main {
         }  catch (IllegalArgumentException exception) {
             System.out.println("Erro na formação da uri, verifique o formato enviado:");
             System.out.println(exception.getMessage());
-        } catch (Exception exception) {
+        } catch (NullPointerException | NegativeArraySizeException exception) {
+            System.out.println("Tratando erro com multi-catch");
+        } catch (YearConversionException exception) {
+            System.out.println(exception.getMessage());
+        }
+        catch (Exception exception) {
             System.out.println("Aconteceu algo e eu não sei o que é, exceção mais genérica possível");
             System.out.println("Não é a boa prática, mas fiz isso mesmo, o certo é sabermos sobre a exceção que está ocorrendo");
         }
