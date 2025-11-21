@@ -19,27 +19,40 @@ public class Main {
         System.out.print("Busque pelo nome do filme: ");
         String search = scanner.nextLine();
 
-        String uriString = "https://www.omdbapi.com/?t=%s&apikey=594fa5ec".formatted(search);
+        try {
+            String uriString = "https://www.omdbapi.com/?t=%s&apikey=594fa5ec".formatted(search);
 
-        HttpClient client = HttpClient.newHttpClient();
+            HttpClient client = HttpClient.newHttpClient();
 
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(uriString))
-                .build();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(uriString))
+                    .build();
 
-        HttpResponse<String> response = client
-                .send(request, HttpResponse.BodyHandlers.ofString());
+            HttpResponse<String> response = client
+                    .send(request, HttpResponse.BodyHandlers.ofString());
 
-        System.out.println(response.body());
+            System.out.println(response.body());
 
-        Gson gson = new GsonBuilder()
-                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
-                .create();
-        // gson.fromJson accept a class to be the response class
-        // Title myTitle = gson.fromJson(response.body(), Title.class);
-        OmdbTitle myOmdbTitle = gson.fromJson(response.body(), OmdbTitle.class);
-        System.out.println(myOmdbTitle);
-        Title myTitle = new Title(myOmdbTitle);
-        System.out.println(myTitle);
+            Gson gson = new GsonBuilder()
+                    .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+                    .create();
+            // gson.fromJson accept a class to be the response class
+            // Title myTitle = gson.fromJson(response.body(), Title.class);
+            OmdbTitle myOmdbTitle = gson.fromJson(response.body(), OmdbTitle.class);
+            System.out.println(myOmdbTitle);
+
+            Title myTitle = new Title(myOmdbTitle);
+
+            System.out.println(myTitle);
+        } catch (NumberFormatException exception) {
+            System.out.println("Erro na transformação para número:");
+            System.out.println(exception.getMessage());
+        }  catch (IllegalArgumentException exception) {
+            System.out.println("Erro na formação da uri, verifique o formato enviado:");
+            System.out.println(exception.getMessage());
+        } catch (Exception exception) {
+            System.out.println("Aconteceu algo e eu não sei o que é, exceção mais genérica possível");
+            System.out.println("Não é a boa prática, mas fiz isso mesmo, o certo é sabermos sobre a exceção que está ocorrendo");
+        }
     }
 }
