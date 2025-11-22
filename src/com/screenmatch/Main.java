@@ -7,6 +7,7 @@ import com.screenmatch.exceptions.YearConversionException;
 import com.screenmatch.models.OmdbTitle;
 import com.screenmatch.models.Title;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -45,6 +46,10 @@ public class Main {
             Title myTitle = new Title(myOmdbTitle);
 
             System.out.println(myTitle);
+
+            FileWriter writer = new FileWriter("movies.txt");
+            writer.write(myTitle.toString());
+            writer.close();
         } catch (NumberFormatException exception) {
             System.out.println("Erro na transformação para número:");
             System.out.println(exception.getMessage());
