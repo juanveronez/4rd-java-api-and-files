@@ -1,4 +1,4 @@
-package com.screenmatch.modules.module3.exceptions;
+package modules.module3.exceptions;
 
 public class GitHubNotFoundException extends RuntimeException {
     public GitHubNotFoundException(String message) {

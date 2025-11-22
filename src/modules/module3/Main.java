@@ -1,7 +1,7 @@
-package com.screenmatch.modules.module3;
+package modules.module3;
 
-import com.screenmatch.modules.module3.exceptions.BadFormatPasswordException;
-import com.screenmatch.modules.module3.exceptions.GitHubNotFoundException;
+import modules.module3.exceptions.BadFormatPasswordException;
+import modules.module3.exceptions.GitHubNotFoundException;
 
 import java.io.IOException;
 import java.net.URI;

@@ -1,10 +1,10 @@
-package com.screenmatch.modules.module2;
+package modules.module2;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.screenmatch.modules.module2.models.Book;
-import com.screenmatch.modules.module2.models.Client;
-import com.screenmatch.modules.module2.models.Person;
+import modules.module2.models.Book;
+import modules.module2.models.Client;
+import modules.module2.models.Person;
 
 public class Main {
     public static void main(String[] args) {

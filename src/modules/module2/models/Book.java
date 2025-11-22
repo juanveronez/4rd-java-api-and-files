@@ -1,4 +1,4 @@
-package com.screenmatch.modules.module2.models;
+package modules.module2.models;
 
 import java.util.List;
 
