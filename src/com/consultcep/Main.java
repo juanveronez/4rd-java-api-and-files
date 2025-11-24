@@ -14,20 +14,29 @@ public class Main {
         System.out.print("Digite o cep desejado: ");
         String cep = scanner.nextLine();
 
+        Locale locale = null;
+
         try {
-            String cepJSON = ViaCep.findCep(cep);
-            Locale locale = ViaCep.convertData(cepJSON);
-
+            locale = ViaCep.findCep(cep);
             System.out.println("Local encontrado: " + locale);
-
-            FileLoader fileLoader = new FileLoader("cep.json");
-            fileLoader.saveJson(locale);
         } catch (BadCepException e) {
             System.out.println("Erro no formato do CEP (EX: 01001000)");
             System.out.println(e.getMessage());
         } catch (IOException | InterruptedException e) {
             System.out.println("Erro na busca do CEP: " + cep);
             System.out.println(e.getMessage());
+        }
+
+        if (locale != null) {
+            FileLoader fileLoader = new FileLoader(locale.cep() + ".json");
+            try {
+                fileLoader.saveJson(locale);
+                System.out.println("Endereço salvo no arquivo correspondente");
+            } catch (IOException e) {
+                System.out.println("Erro ao salvar arquivo: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Endereço não recuperado, nada será salvo");
         }
     }
 }
